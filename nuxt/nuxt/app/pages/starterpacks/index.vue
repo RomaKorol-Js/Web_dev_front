@@ -7,7 +7,12 @@
   //   const table = useTemplateRef('table');
   const activeplan = ref('annual');
 
-  const { data: items } = await useFetch('/api/items');
+  const { data: preitem } = await useFetch('/api/items');
+
+  const items = computed(() => {
+    if (!preitem.value) return [];
+    return preitem.value.filter((item) => item.type === activeplan.value);
+  });
 </script>
 
 <template>
@@ -74,26 +79,31 @@
           </div>
           <div class="flex items-end mt-4">
             <b>
-              <h1 class="text-4xl text-gray-900">{{ item.price_for_month }}</h1>
+              <h1 class="text-4xl text-gray-900">{{ item.price }}</h1>
             </b>
             <h1 class="text-gray-600 mb-1">/{{ item.payment_frequency }}</h1>
           </div>
-          <div class="flex items-center mt-2 text-gray-600">
+          <div
+            v-if="item.type == 'annual'"
+            class="flex items-center mt-2 text-gray-600"
+          >
             <h3 class="mr-2">billed yearly at</h3>
-            <h3 class="line-through mr-2">{{ item.price_for_year }}</h3>
+            <h3 class="line-through mr-2">{{ item.Alternative_price }}</h3>
             <h3>{{ item.discount_price }}</h3>
           </div>
 
           <div
+            v-if="item.type == 'annual'"
             class="bg-green-100 text-green-700 w-fit px-2 py-1 mt-2 mb-4 font-semibold rounded"
           >
             {{ item.savings }}
           </div>
-
           <div
-            class="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-sm text-gray-800 font-bold mb-4 p-2 text-center hover:border-black hover:border-1 hover:text-gray-900 cursor-pointer"
+            class="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-sm text-gray-800 font-bold mt-2 mb-4 p-2 text-center hover:border-black hover:border-1 hover:text-gray-900 cursor-pointer"
           >
-            <h2>{{ item.text_for_button }}</h2>
+            <NuxtLink :to="`/starterpacks/${item.id}`">
+              <h2>{{ item.text_for_button }}</h2>
+            </NuxtLink>
           </div>
         </div>
 
