@@ -3,6 +3,7 @@
   const itemId = route.params.id;
 
   const { data: item } = await useFetch(`/api/items/${itemId}`);
+  const store = useSubscriptionStore();
 
   const formdata = ref({
     cardNumber: '',
@@ -18,6 +19,8 @@
       method: 'POST',
       body: formdata.value
     });
+    store.subscription = res;
+    navigateTo('/checkout');
     alert(
       'Subscription created successfully!{response: ' +
         JSON.stringify(res) +
@@ -264,7 +267,8 @@
               <button
                 class="bg-gray-300 rounded-sm text-gray-500 font-bold mb-4 p-3 text-center cursor-pointer"
               >
-                <h2>Try It Free</h2>
+                <h2 v-if="!store.isLoading">Try It Free</h2>
+                <h2 v-else>Processing...</h2>
               </button>
             </div>
           </div>
