@@ -22,6 +22,16 @@
           href="/starterpacks"
           >starterpacks</a
         >
+        <a
+          class="text-xl mt-6 p-1 border-2 border-grey-300 font-bold mb-4 rounded"
+          href="/BlogPost/BlogPosts"
+          >Blog Posts</a
+        >
+        <a
+          class="text-xl mt-6 p-1 border-2 border-grey-300 font-bold mb-4 rounded"
+          href="/BlogPost/BlogPostsUi"
+          >Blog Post Ui</a
+        >
       </div>
       <NuxtPage />
     </UMain>

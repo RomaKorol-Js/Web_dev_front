@@ -61,10 +61,9 @@
                   <td>{{ post.category.title }}</td>
 
                   <td>
-                    <a
-                      :href="'http://localhost/api/admin/blog/posts/' + post.id"
-                      >{{ post.title }}</a
-                    >
+                    <a :href="'http://localhost:3000/BlogPost/' + post.id">{{
+                      post.title
+                    }}</a>
                     <!-- http://localhost/api/admin/blog/posts/1 -->
                   </td>
 

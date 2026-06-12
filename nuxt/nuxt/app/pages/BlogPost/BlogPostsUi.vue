@@ -1,10 +1,9 @@
 <script setup>
   import { h, resolveComponent } from 'vue';
-
   import { getPaginationRowModel } from '@tanstack/vue-table';
 
   const table = useTemplateRef('table');
-
+  const NuxtLink = resolveComponent('NuxtLink');
   const UBadge = resolveComponent('UBadge');
   const UButton = resolveComponent('UButton');
 
@@ -78,6 +77,19 @@
         class: {
           th: 'text-gray-800'
         }
+      },
+      cell: ({ row, getValue }) => {
+        const categoryTitle = getValue();
+
+        const poastId = row.original.id;
+        return h(
+          NuxtLink,
+          {
+            to: `http://localhost:3000/BlogPost/${poastId}`,
+            class: 'text-blue-600'
+          },
+          () => categoryTitle
+        );
       }
     },
     {
@@ -168,3 +180,7 @@
   </div>
   <!-- <pre>{{ posts }}</pre> -->
 </template>
+<!-- 
+<a :href="'http://localhost:3000/BlogPost/' + post.id">{{
+                      post.title
+                    }}</a> -->
