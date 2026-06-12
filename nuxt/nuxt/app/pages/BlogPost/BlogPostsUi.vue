@@ -35,7 +35,7 @@
       }
     },
     {
-      accessorKey: 'user.name',
+      accessorKey: 'author_name',
       key: 'Автор',
       header: ({ column }) => {
         const isSorted = column.getIsSorted();
@@ -55,7 +55,7 @@
       }
     },
     {
-      accessorKey: 'category.title',
+      accessorKey: 'category_title',
       header: ({ column }) => {
         const isSorted = column.getIsSorted();
 
@@ -114,7 +114,7 @@
       }
     },
     {
-      accessorKey: 'published_at',
+      accessorKey: 'date_published',
       key: '	Дата публікації',
       header: ({ column }) => {
         const isSorted = column.getIsSorted();

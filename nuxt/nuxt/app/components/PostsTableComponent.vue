@@ -56,9 +56,9 @@
                 <tr v-for="post in posts">
                   <td>{{ post.id }}</td>
 
-                  <td>{{ post.user.name }}</td>
+                  <td>{{ post.author_name }}</td>
 
-                  <td>{{ post.category.title }}</td>
+                  <td>{{ post.title }}</td>
 
                   <td>
                     <a :href="'http://localhost:3000/BlogPost/' + post.id">{{
@@ -67,7 +67,7 @@
                     <!-- http://localhost/api/admin/blog/posts/1 -->
                   </td>
 
-                  <td>{{ post.published_at }}</td>
+                  <td>{{ post.date_published }}</td>
                 </tr>
               </tbody>
             </table>
