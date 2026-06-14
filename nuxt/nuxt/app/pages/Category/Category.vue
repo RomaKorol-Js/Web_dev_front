@@ -11,36 +11,36 @@
     data: response,
     pending,
     refresh
-  } = await useFetch('http://localhost/api/admin/blog/posts', {
+  } = await useFetch('http://localhost/api/admin/blog/categories', {
     query: page,
     watch: [page]
   });
 
-  const posts = computed(() => response.value?.data);
+  const categories = computed(() => response.value?.data);
   const totalItems = computed(() => response.value?.meta?.total);
   const perPage = computed(() => response.value?.meta?.per_page);
 
-  const deletePost = async (id: number) => {
-    await $fetch(`http://localhost/api/admin/blog/posts/${id}`, {
+  const deleteCategory = async (id: number) => {
+    await $fetch(`http://localhost/api/admin/blog/categories/${id}`, {
       method: 'DELETE'
     });
     refresh();
   };
 
   const getDropdownItems = (row: any) => {
-    const postId = row.original?.id || row.id;
+    const categoryId = row.original?.id || row.id;
     return [
       [
         {
           label: 'Змінити',
           icon: 'i-lucide-edit',
-          to: `/BlogPost/CRUD/Add_Update?id=${postId}`
+          to: `/Category/CRUD/Add_Update?id=${categoryId}`
         },
         {
           label: 'Видалити',
           icon: 'i-lucide-trash',
           color: 'error',
-          onSelect: () => deletePost(postId)
+          onSelect: () => deleteCategory(categoryId)
         }
       ]
     ];
@@ -52,18 +52,17 @@
       accessorKey: 'title',
       header: 'Заголоволок',
       cell: ({ row, getValue }) => {
-        const postTitle = getValue();
-        const postId = row.original?.id || row.id;
+        const categoryTitle = getValue();
+        const categoryId = row.original?.id || row.id;
         return h(
           NuxtLink,
-          { to: `/BlogPost/${postId}`, class: 'text-blue-600' },
-          () => postTitle
+          { to: `/Category/${categoryId}`, class: 'text-blue-600' },
+          () => categoryTitle
         );
       }
     },
-    { accessorKey: 'author_name', header: 'Автор' },
-    { accessorKey: 'category_title', header: 'Категорія' },
-    { accessorKey: 'date_published', header: 'Дата публікації' },
+    { accessorKey: 'parent_category', header: 'Батьківська категорія' },
+    { accessorKey: 'category_description', header: 'Опис' },
     { id: 'action' }
   ];
 </script>
@@ -73,7 +72,7 @@
     <div class="flex px-4 py-3.5 border-b border-accented justify-end">
       <div class="flex flex-row-reverse mr-4">
         <UButton
-          to="/BlogPost/CRUD/Add_Update"
+          to="/Category/CRUD/Add_Update"
           color="primary"
           aria-label="Actions"
           >Створити
@@ -83,7 +82,7 @@
 
     <UTable
       :columns="columns"
-      :data="posts"
+      :data="categories"
       :loading="pending"
       :ui="{
         thead: 'bg-gray-400',
