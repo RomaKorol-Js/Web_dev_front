@@ -7,12 +7,16 @@
 
   const page = ref(1);
 
+  const queryPage = computed(() => ({
+    page: page.value
+  }));
+
   const {
     data: response,
     pending,
     refresh
   } = await useFetch('http://localhost/api/admin/blog/posts', {
-    query: page,
+    query: queryPage,
     watch: [page]
   });
 
