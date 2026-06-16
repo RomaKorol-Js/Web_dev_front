@@ -10,7 +10,7 @@
   const queryPage = computed(() => ({
     page: page.value
   }));
-
+  
   const {
     data: response,
     pending,

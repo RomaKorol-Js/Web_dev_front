@@ -29,7 +29,7 @@
   if (isEditing.value) {
     try {
       const res = await $fetch(
-        `http://localhost/api/admin/blog/categories/${editId}`
+        `http://localhost/api/admin/blog/categories/${editId.value}`
       );
       console.log(res);
       if (res && res.data) {
@@ -52,10 +52,13 @@
 
     try {
       if (isEditing.value) {
-        await $fetch(`http://localhost/api/admin/blog/categories/${editId}`, {
-          method: 'PUT',
-          body: payload
-        });
+        await $fetch(
+          `http://localhost/api/admin/blog/categories/${editId.value}`,
+          {
+            method: 'PUT',
+            body: payload
+          }
+        );
       } else {
         await $fetch('http://localhost/api/admin/blog/categories', {
           method: 'POST',
